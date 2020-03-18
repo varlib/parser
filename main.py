@@ -1,9 +1,11 @@
 from bs4 import BeautifulSoup
+from datetime import datetime
 import requests
 import re
 import csv
 import os
 
+start_time = datetime.now()
 with open('list.csv', newline='') as File:
     reader = csv.reader(File, delimiter=';', quotechar=',',
                         quoting=csv.QUOTE_ALL)
@@ -37,3 +39,5 @@ with open('list.csv', newline='') as File:
                         writer.writerow(ostat)
             except:
                 print('ERROR: '+row[0])
+
+print(datetime.now() - start_time)
