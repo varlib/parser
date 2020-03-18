@@ -11,7 +11,7 @@ with open('list.csv', newline='') as File:
                         quoting=csv.QUOTE_ALL)
     fileend = 'end.csv'
     if os.path.isfile(fileend):
-        os.remove('end.csv')
+        os.remove(fileend)
 
     for row in reader:
         try:
