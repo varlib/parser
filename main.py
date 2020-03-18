@@ -14,30 +14,26 @@ with open('list.csv', newline='') as File:
         os.remove('end.csv')
 
     for row in reader:
-        url = row[1]
+        try:
+            url = row[1]
+        except:
+            url=''
+
         if 'volvo' not in url:
-            print('URL: ' + url)
+            print('not url')
         else:
             page = requests.get(url)
-
             soup = BeautifulSoup(page.text, "html.parser")
-
             ostat = soup.find('div', class_='product-table__qty')
-
-            try:
-                ostat = ostat.text
-                ostat = re.findall('(\d+)', ostat)
-
+            ostat = ostat.text
+            ostat = re.findall('(\d+)', ostat)
+            if not ostat:
+                print('под заказ')
+            else:
                 ostat = [row[0], ostat[0]]
-
-                if not ostat:
-                    print('под заказ')
-                else:
-                    print(ostat)
-                    with open(fileend, 'a', newline='') as filecsv:
-                        writer = csv.writer(filecsv, quoting=csv.QUOTE_ALL)
-                        writer.writerow(ostat)
-            except:
-                print('ERROR: '+row[0])
+                print(ostat)
+                with open(fileend, 'a', newline='') as filecsv:
+                    writer = csv.writer(filecsv, quoting=csv.QUOTE_ALL)
+                    writer.writerow(ostat)
 
 print(datetime.now() - start_time)
