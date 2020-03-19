@@ -12,12 +12,12 @@ with open('list.csv', newline='') as File:
     reader = csv.reader(File, delimiter=';', quotechar=',',
                             quoting=csv.QUOTE_ALL)
     fileend = 'end.csv'
-        #if os.path.isfile(fileend):
-            #os.remove(fileend)
+    #if os.path.isfile(fileend):
+        #os.remove(fileend)
 
     for row in reader:
         n += 1
-        if n > 8787:
+        if n > 33264:
             try:
                 url = row[1]
             except:
@@ -28,7 +28,7 @@ with open('list.csv', newline='') as File:
             else:
                 page = requests.get(url)
                 if page.status_code != 200:
-                    print('URL ERROR: ' + page.status+ ' ('+row[0]+')')
+                    print('URL ERROR: ' + page.status + ' ('+row[0]+')')
                 else:
                     soup = BeautifulSoup(page.text, "html.parser")
                     ostat = soup.find('div', class_='product-table__qty')
