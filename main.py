@@ -17,7 +17,7 @@ with open('list.csv', newline='') as File:
 
     for row in reader:
         n += 1
-        if n > 33264:
+        if n > 44778:
             try:
                 url = row[1]
             except:
