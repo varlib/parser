@@ -50,6 +50,7 @@ def start_parser(startline):
                             else:
                                 print('error find class')
                     except:
+                        sendMail("Server: 10.25.1.45 | Parser error in line: "+str(n))
                         start_parser(n)
 
 
@@ -59,10 +60,10 @@ def getParam():
     return param
 
 def sendMail(tSub):
-    host =
+    host = 'mail.mjr.local'
     subject = tSub
-    to =
-    From =
+    to = 'LOG_IT_SUPPORT@mjr.local'
+    From = 'noreply@mjr.local'
     text = tSub
 
     body = "\r\n".join((
@@ -78,15 +79,17 @@ def sendMail(tSub):
 
 
 if __name__ == '__main__':
-    print('start parsrt')
+    print('Start parser')
     param = getParam()
     namespace = param.parse_args()
+    position = namespace.position
 
     start_time = datetime.now()
-    if namespace.position:
-        print('Position start ' + namespace.position)
-        start_parser(namespace.position)
+    if position:
+        print('Position start ' + position)
+        start_parser(int(position))
     else:
         print('Position start 0')
         start_parser(0)
     print(datetime.now() - start_time)
+    sendMail('Parser completed processing')
